@@ -1,6 +1,8 @@
 FROM debian:bookworm-slim
 
 COPY install.sh /app/install.sh
+COPY log_activation.sh /app/log_activation.sh
+COPY auto_commit_logs.sh /app/auto_commit_logs.sh  # if created
 
 WORKDIR /app
 
@@ -8,7 +10,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bash git curl wget unzip tzdata openssl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Make scripts executable during build
 RUN chmod +x /app/install.sh && /app/install.sh
+RUN chmod +x /app/log_activation.sh && \
+    chmod +x /app/auto_commit_logs.sh 2>/dev/null || true
+
 COPY config.json /etc/config.json
 
 # Configure git for commits (if desired)
