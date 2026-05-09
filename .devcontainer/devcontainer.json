@@ -16,7 +16,7 @@
     "public": "gh codespace ports visibility 443:public -c $CODESPACE_NAME",
     "xray": "sudo /usr/local/bin/xray -c /etc/config.json"
   },
-  "postStartCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/log_activation.sh",
+  "postStartCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/log_activation.sh",
   "portsAttributes": {
     "443": {
       "label": "xray",
